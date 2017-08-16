@@ -1,0 +1,65 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<a href="" onclick="window.history.back()"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<div>
+	<h3>All Your Open Events:</h3>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Event Name:</th>
+				<th>Event Description:</th>
+				<th>Link:</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for event in events %}
+				{% if event.complete == False %}
+				<tr>
+					<td>{{event.event_name}}</td>
+					<td>{{event.event_desc}}</td>
+					<td><div class="dropdown">
+						<ui class-"dropdown-toggle btn btn-primary btn-xs" type="button" data-toggle="dropdown">Manage</ui>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="/events/manage/{{event.event_id}}/settings"><center>Settings</center></a>
+							</li>
+							<li>
+								<a href="/events/manage/{{event.event_id}}/delete/confirm"><center>Delete</center></a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<hr>
+<div>
+	<h3>All Your Closed Events:</h3>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Event Name:</th>
+				<th>Event Description:</th>
+				<th>Link:</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for event in events %}
+			{% if event.complete == True %}
+					<tr>
+						<td>{{event.event_name}}</td>
+						<td>{{event.event_desc}}</td>
+						<td><a href="/events/manage/{{event.event_id}}" class="btn btn-primary btn-xs">Manage</a></td>
+					</tr>
+			{% endif %}
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

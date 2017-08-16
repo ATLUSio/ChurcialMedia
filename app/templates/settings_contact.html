@@ -1,0 +1,33 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<a href="profile/me"><i class="fa fa-arrow-left fa-fw"></i>Back</a>
+<hr>
+<h3>Contact Information:<a href="#" data-toggle="tooltip" title="If profile is set to public (default is private), the information on this page will be displayed on your profile."><i class="fa fa-question fa-fw"></i></a></h3>
+<form action="" method="post" name="settings">
+	{{ form.hidden_tag() }}
+	<div class="input-group col-xs-4">
+		<span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span><input id="phone_number" class="form-control" name="phone_number" type="text" value="" placeholder="Phone Number:">
+	</div>
+		{% for error in form.phone_number.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	<br>
+	<div class="input-group col-xs-4">
+		<span class="input-group-addon"><i class="fa fa-home fa-fw"></i></span><input id="home_address" class="form-control" name="home_address" size="50" type="text" value="" placeholder="Home Address:">
+	</div>
+		{% for error in form.home_address.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	<br>
+	<p>Private Contact Info?<br>
+		{{ form.visible(size=50) }} <a href="#" data-toggle="tooltip" title="Determines whether this information is displayed to other users or not."><i class="fa fa-question fa-fw"></i></a>
+		{% for error in form.visible.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	</p>
+	<p><input class="btn btn-default" type="submit" name="submit_settings"></p>
+</form>
+{% endblock %}

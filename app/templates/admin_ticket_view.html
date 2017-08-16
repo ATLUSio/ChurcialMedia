@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/admin/tickets" class="btn btn-primary btn-xs"> Back</a>
+
+<hr>
+{% if not ticket.solved %}
+	<a href="/api/ticket/solve/{{ ticket.id }}" class="btn btn-success"> Open</a>
+{% else %}
+	<a href="/api/ticket/open/{{ ticket.id }}" class="btn btn-danger"> Solved</a>
+{% endif %}
+<hr>
+
+<div>
+	<p>{{ ticket.body }}</p>
+</div>
+
+{% endblock %}

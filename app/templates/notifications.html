@@ -1,0 +1,16 @@
+<!-- extends 'base.html' -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if notifications %}
+	{% for notification in notifications %}
+		{% include "notification.html" %}
+		<br>
+	{% endfor %}
+{% else %}
+	No new notifications
+{% endif %}
+
+{% endblock %}

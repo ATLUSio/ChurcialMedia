@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{{ url_for('get_event', event_id=evt.event_id) }}" class="btn btn-primary btn-xs"> Back</a>
+
+<h2>Invite a friend to {{ evt.event_id }}:</h2>
+<form action="" method="post" name="basic_form">
+	{{ form.hidden_tag() }}
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span><input id="user_name" class="form-control" name="user_name" size="50" type="text" value="" placeholder="Profile ID:">
+	</div>
+	{% for error in form.user_name.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<p><input class="btn btn-default" type="submit" name="submit_basic_form"></p>
+</form>
+{% endblock %}

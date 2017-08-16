@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if 'ticket_back' in session %}
+<a href="/tickets/open"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+{% endif %}
+
+<hr>
+	<a href="/api/tickets/solve/{{ ticket.id }}" class="btn {% if not ticket.solved %}btn-success{% else %}btn-danger{% endif %}">{% if not ticket.solved %} Open{% else %} Solved{% endif %}</a>
+<hr>
+<h2>Submit a response:</h2>
+<form action="" method="post" name="tickets">
+	{{ form.hidden_tag() }}
+	{{ form.correspondence(cols="35", rows="3")}}
+	<br>
+	<p><input class="btn btn-default" type="submit" name="submit_response"</p>
+</p>
+<hr>
+<h2>Correspondence:</h2>
+<br>
+<div>
+	{% for message in correspondence %}
+		<p><b>{{ message['user'] }}</b>: {{ message['message'] }}</p>
+		<br>
+	{% endfor %}
+</div>
+
+{% endblock %}

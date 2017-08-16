@@ -1,0 +1,16 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<a href="" onclick="window.history.back()"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<hr>
+<h3>Your friends:</h3>
+{% for friend in friends %}
+<p>
+	Friend name: {{friend['name']}}<br>
+	<a href="/profile/{{friend['profile_id']}}" class="btn btn-primary btn-xs">View Profile</a>
+</p>
+{% endfor %}
+{% endblock %}

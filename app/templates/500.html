@@ -1,0 +1,11 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+	<h1>Internal server error!</h1>
+	<img src="/{{ pic }}.jpg" width="300" height='400'>
+	<p><a href="{{ url_for('index') }}">Click here to go back home</a></p>
+</div>
+{% endblock %}

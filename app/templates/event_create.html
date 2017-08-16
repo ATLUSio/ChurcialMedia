@@ -1,0 +1,52 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>$(function() {$("#event_date ").datepicker();});</script>
+<br>
+<a href="" onclick="window.history.back()"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<hr>
+<h3>Create an Event:</h3>
+<form action="" method="post">
+	{{ form.hidden_tag() }}
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><i class="fa fa-commenting fa-fw"></i></span><input id="event_name" class="form-control" name="event_name" size="50" type="text" value="" placeholder="Event Name:">
+	</div>
+	{% for error in form.event_name.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><i class="fa fa-info fa-fw"></i></span><input id="event_desc" class="form-control" name="event_desc" size="50" type="text" value="" placeholder="Event Description:">
+	</div>
+	{% for error in form.event_desc.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><a href="#" data-toggle="tooltip" title="Event ID can be up to 20 characters long. An event's ID cannot be changed once created."><i class="fa fa-ellipsis-v fa-fw"></i></a></span><input id="event_id" class="form-control" name="event_id" size="50" type="text" value="" placeholder="Event ID:">
+	</div>
+	{% for error in form.event_id.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<p>Public Event? {{ form.pub_event }} <a href="#" data-toggle="tooltip" title="If this box is checked, people outside of your friends list can attend this event."><i class="fa fa-question fa-fw"></i></a></p>
+	{% for error in form.pub_event.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-4">
+		<span class="input-group-addon"><a href="#" data-toggle="tooltip" title="Click to select date. Type 01/01/1970 for an event with no beginning or ending date."><i class="fa fa-calendar fa-fw"></i></a></span><input id="event_date" class="form-control" name="event_date" size="15" type="text" value="01/01/1970" class="hasDatepicker" placeholder="Date:">
+	</div>
+		{% for error in form.event_date.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	<br>
+	<br>
+	<p><input class="btn btn-default" type="submit" name="submit_settings"></p>
+</form>
+{% endblock %}

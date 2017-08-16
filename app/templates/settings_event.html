@@ -1,0 +1,91 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>$(function() {$("#event_date ").datepicker();});</script>
+<script>
+	$(function() {
+		var i = $('#vol_sched p').size()+1;
+
+		$('#addDiv').click(function(){
+			if ((i-1) < 7){
+				$('<p class="input-group col-xs-8"><span class="input-group-addon"><a href="#" class="remDiv"><i class="fa fa-times fa-fw"></i></a></span><input id="volunteer_schedule_' + i + '" class="form-control" name="volunteer_schedule_' + i + '" size="50" type="text" value="" placeholder="Date: Time, Time*2, Time*2, Time"></p>').appendTo('#vol_sched');
+				i++;
+			}	
+			return false;
+		});
+
+		$(document).on('click', '.remDiv', function(){
+			if (i > 2){
+				$(this).closest('p').remove();
+				i--;
+			}
+			return false;
+		});
+	});
+</script>
+<a href="/events/manage"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<hr>
+<h2>Event Settings</h2>
+<form action="" method="post" name="event_settings">
+	{{ form.hidden_tag() }}
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><i class="fa fa-hand-o-right fa-fw"></i></span><input id="event_name" class="form-control" name="event_name" size="50" type="text" value="" placeholder="Event Name:">
+	</div>
+	{% for error in form.event_name.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><i class="fa fa-bars fa-fw"></i></span><input id="event_desc" class="form-control" name="event_desc" size="50" type="text" value="" placeholder="Event Description:">
+	</div>
+	{% for error in form.event_desc.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span><input id="event_address" class="form-control" name="event_address" size="50" type="text" value="" placeholder="Event Address:">
+	</div>
+	{% for error in form.event_address.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span><input id="event_date" class="form-control" name="event_date" size="15" type="text" value="" placeholder="Event Date:">
+	</div>
+	{% for error in form.event_date.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div id="vol_sched">
+		<p class="input-group col-xs-8">
+			<span class="input-group-addon">
+				<a href="#" data-toggle="tooltip" title="Enter day followed by a colon (:). Separate each time slot with a comma (,). Add volunteer slots by multiplying time slot (ie *2 for 2 volunteers)" id="addDiv"><i class="fa fa-plus fa-fw"></i></a>
+			</span>
+			<input id="volunteer_schedule" class="form-control" name="volunteer_schedule" size="50" type="text" value="" placeholder="January 27th: 1PM*2, 2PM*2, 3PM">
+		</p>
+	</div>
+	{% for error in form.volunteer_schedule.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<h3>Public Event:</h3> 
+	<div class="checkbox">
+		<label><input id="event_public" name="event_public" type="checkbox" {% if event.pub_event == True %}checked="checked"><i class="fa fa-product-hunt fa-fw"></i>Yes{% else %}><i class="fa fa-user-secret fa-fw"></i>No{% endif %}</label>
+	</div>
+	{% for error in form.event_public.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<h3>Finished Event:</h3>
+	<div class="checkbox">
+		<label><input id="event_complete" name="event_complete" type="checkbox" {% if event.complete == True %}checked="checked"{% endif %}>{% if event.complete == True %}<i class="fa fa-check fa-fw"></i>&nbsp;Yes{% else %}<i class="fa fa-times fa-fw"></i>&nbsp;No{% endif %}</label>
+	</div>
+	{% for error in form.event_complete.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<p><input class="btn btn-primary" type="submit" name="submit_event_settings"></p>
+</form>
+{% endblock %}

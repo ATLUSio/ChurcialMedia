@@ -1,0 +1,48 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<a href="" onclick="window.history.back()"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<hr>
+	<table>
+		<tr valign="top">
+			<td><img src="{{ vuser.avatar(128) }}"></td>
+			<td><h3>Name: {% if vuser.display_name %}{{ vuser.display_name }} {% else %}{{ vuser.user_name }} {% endif %} <br><br>
+			{% if muser.administrator == True %}
+			<div class="dropdown">
+				<ui class="dropdown-toggle btn btn-primary" type="button" data-toggle="dropdown">Options</ui>
+				<ul class="dropdown-menu">
+					<li>
+						{% if vuser not in muser.friends %}
+						<a href="/profile/{{ vuser.profile_id }}/friend"><center>Friend</center></a>
+						{% else %}
+						<a href="/profile/{{ vuser.profile_id }}/unfriend"><center><i class="fa fa-check fa-fw"></i></center></a>
+						{% endif %}
+					</li>
+					<li>
+						<a href="/api/moderator/{{ vuser.profile_id }}"><center>{% if vuser.moderator %}Demote{% else %}Make Mod{% endif %}</center></a>
+					</li>
+				</ul>
+			</div>
+			{% else %}
+				{% if vuser not in muser.friends %}
+				<a href="/profile/{{ vuser.profile_id }}/friend" class="btn btn-primary"><center>Friend</center></a>
+				{% else %}
+				<a href="/profile/{{ vuser.profile_id }}/unfriend" class="btn btn-success"><center>&nbsp;&nbsp;&nbsp;<i class="fa fa-check fa-fw"></i>&nbsp;&nbsp;&nbsp;</center></a>
+				{% endif %}
+			{% endif %}
+			</h3></td>
+		</tr>
+	<table>
+	<hr>
+	{% if requests %}
+		{% for request in requests %}
+			{% if request.anonymous == False %}
+				{% include "request.html" %}
+				<br>
+			{% endif %}
+		{% endfor %}
+	{% else %}
+	<p>Doesn't appear that this user has any prayer requests! Maybe you can urge them to post one?</p>
+	{% endif %}
+{% endblock %}

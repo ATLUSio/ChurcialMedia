@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/admin"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<br>
+
+{% if combos %}
+	{% for report in combos %}
+		{% include "report.html" %}
+		<br>
+	{% endfor %}
+{% else %}
+	No reports
+{% endif %}
+
+{% endblock %}

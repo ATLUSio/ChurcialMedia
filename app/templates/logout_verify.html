@@ -1,0 +1,9 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+{% set active_page = "logout" %}
+{% block content %}
+<h3>Logout?</h3>
+<a href="/api/logout" class="btn btn-success">Yes!</a>
+<a href="/index" class="btn btn-danger">No!</a>
+{% endblock %}

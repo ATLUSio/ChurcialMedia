@@ -1,0 +1,17 @@
+<table>
+	<tr valign="top">
+		<td>
+			<div class="dropdown">
+				<ui class="dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-sort-desc fa-fw"></i></ui>
+				<ul class="dropdown-menu">
+					<li><a href="/tickets/{{ ticket.id }}">View</a></li>
+					<li><a href="/api/tickets/solve/{{ ticket.id }}">Solve</a></li>
+					{% if user.administrator == True %}<li><a href="/api/tickets/merge/{{ ticket.id }}">Merge</a></li>{% endif %}
+				</ul>
+			</div>
+		</td>
+		<td>Ticket ID: {{ ticket.id }}</td>
+		{% if user.adminstrator == True %}<td>Requester: {{ ticket.parishioner.user_name }}</td>{% endif %}
+		<td>Request: {{ ticket.correspondence[0]['message'] }}</td>
+	</tr>
+</table>

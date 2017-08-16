@@ -1,0 +1,10 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+{% set active_page = "logout" %}
+{% block content %}
+<h1>Logout button:</h1>
+<form action="" method="post" name="logout">
+	<p> {{ form.logout_button }} Logout?</p>
+	<p><input type="submit" value="logout"></p>
+{% endblock %}

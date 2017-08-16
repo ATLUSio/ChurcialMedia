@@ -1,0 +1,83 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+{% set active_page = "events" %}
+{% block content %}
+
+<div><a href='/events/create'><i class="fa fa-calendar-plus-o fa-fw"></i>Create Event</a></div>
+<div><a href='/events/manage'><i class="fa fa-calendar fa-fw"></i>Manage Events</a></div>
+
+{% if events %}
+<hr>
+<h3>Events you're attending:</h3>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Event Name:</th>
+			<th>Event Description:</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for event in events %}
+		<tr>
+			<td><i>{{ event.event_name }}</i></td>
+    	<td>{{ event.event_desc }}</td>
+    	<td><a href="/events/{{event.event_id}}" class="btn btn-primary btn-xs">View</a></td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endif %}
+
+{% if pinned_events %}
+<hr>
+<h3>Pinned Events:</h3>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Event Name:</th>
+			<th>Event Description:</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for event in pinned_events %}
+		<tr>
+			<td><i>{{ event.event_name }}</i></td>
+    	<td>{{ event.event_desc }}</td>
+    	<td><a href="/events/{{event.event_id}}" class="btn btn-primary btn-xs">View</a></td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endif %}
+
+{% if all_events %}
+<hr>
+	<h3>All Events:</h3>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Event Name:</th>
+				<th>Event Description:</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for event in all_events %}
+			<tr>
+				<td><i>{{ event.event_name }}</i></td>
+				<td>{{ event.event_desc }}</td>
+				<td><a href="/events/{{event.event_id}}" class="btn btn-primary btn-xs">View</a></td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<h3>There don't appear to be any events currently scheduled.<br>
+Maybe you can make organize one?</h3>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% set active_page = "index" %}
+{% block content %}
+	{% if user %} 
+    <h2>Welcome back, {{ display }}!</h2>
+    <h3>Recent prayer requests:</h3>
+    <div>
+    {% for request in requests %}
+      {% include "request.html" %}
+      <br>
+    {% endfor %}
+    </div>
+  {% else %}
+  <h1>Welcome to AdoreJes.us!</h1>
+  <p>You can think of AdoreJes.us like social media for church <i class="fa fa-smile-o fa-fw"></i></p>
+  <p>You can:</p>
+  <ul>
+    <li>Post Prayer Requests</li>
+    <li>Add friends to your account</li>
+    <li>View your friends prayer requests</li>
+    <li>Create events</li>
+    <li>Sign-up for events as a volunteer or attendee</li>
+    <li>And more!</li>
+  </ul>
+  <p>Register to get started, or log in if you already have an account!</p>
+  {% endif %}
+{% endblock %}
+
+

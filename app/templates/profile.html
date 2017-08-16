@@ -1,0 +1,47 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+{% set active_page = "profile" %}
+{% block content %}
+	<div><a href='/profile/settings'><i class="fa fa-cog fa-fw"></i>Account Information</a></div>
+	<div><a href='/profile/contact'><i class="fa fa-phone fa-fw"></i>Contact Information</a></div>
+	<div><a href='/profile/twitter'><i class="fa fa-twitter fa-fw"></i>Twitter Settings</a></div>
+	{% if user.profile_id %}
+	<div><a href='/profile/{{user.profile_id}}'><i class="fa fa-eye fa-fw"></i>View My Profile</a></div>
+	{% endif %}
+	{% if user.friends %}
+	<div><a href='/profile/me/friends'><i class="fa fa-users fa-fw"></i>Friends</a></div>
+	{% endif %}
+	<hr>
+	<table>
+		<tr valign="top">
+			<td><a href="#" data-toggle="tooltip" title="Images provided by Gravatar. Please visit en.gravatar.com to set your profile picture."><img src="{{ user.avatar(128) }}"></a></td>
+			<td><h1>{% if user.display_name %}Name: {{ user.display_name }} {% else %} Username: {{ user.user_name }} {% endif %}</h1></td>
+		</tr>
+	<table>
+	<hr>
+	<form action="" method="post" name="prequest">
+		{{ form.hidden_tag() }}
+		<div class="input-group col-xs-8">
+				<span class="input-group-addon"><i class="fa fa-heart fa-fw"></i></span><input id="request" class="form-control" name="request" size="50" type="text" value="" placeholder="Enter Prayer Request">
+		</div>
+		{% for error in form.request.errors %}
+				<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+		<br>
+		<p> {{ form.anonymous }} Anonymous Request <a href="#" data-toggle="tooltip" title="If this box is selected, your prayer request will show up as anonymous in prayer feeds."><i class="fa fa-question fa-fw"></i></a></p>
+		{% if user.twitter_enabled %}
+		<p> {{ form.tweet }} Tweet Request <a href="#" data-toggle="tooltip" title="If this box is selected, your prayer request (only) will be tweeted on Twitter."><i class="fa fa-question fa-fw"></i></a></p>
+		{% endif %}
+		<p><input class="btn btn-default" type="submit" name="request"></p>
+	</form>
+	<hr>
+	{% if requests %}
+	<h2>My prayer requests:</h2>
+		{% for request in requests %}
+			{% include "request.html" %}
+			<br>
+		{% endfor %}
+	{% else %}
+	<p>Doesn't appear that you have any prayer requests! Maybe you should post one?</p>
+	{% endif %}
+{% endblock %}

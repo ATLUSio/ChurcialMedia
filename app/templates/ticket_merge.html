@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% set active_page = "tickets" %}
+
+{% block content %}
+<a href="/tickets/open" class="btn btn-primary">Open Tickets</a>
+	<h2>Ticket to merge into?</h2>
+	<form action="" method="post" name="merge_tickets">
+		{{ form.hidden_tag() }}
+		{{ form.merge(cols="15", rows="1") }}
+		<br>
+		<p><input class="btn btn-default" type="submit" name="merge_tickets"></p>
+	</form>
+{% endblock %}

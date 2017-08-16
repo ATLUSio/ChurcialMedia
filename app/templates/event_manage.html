@@ -1,0 +1,13 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<a href="/events"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<h3>Managing Event: {{ event.event_id }}</h3>
+<hr>
+<a href="/events/manage/{{ event.event_id }}/settings" class="btn btn-primary btn-xs">Settings</a>
+<a href="/events/manage/{{ event.event_id }}/delete/confirm" class="btn btn-danger btn-xs">Delete</a>
+
+{% endblock %}

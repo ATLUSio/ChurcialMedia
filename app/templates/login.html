@@ -1,0 +1,25 @@
+<!-- extend from base template -->
+{% extends "base.html" %}
+{% set active_page = "login" %}
+{% block content %}
+<h1>Sign In:</h1>
+<form action="" method="post" name="login">
+  {{ form.hidden_tag() }}
+  <div class="input-group margin-bottom-sm col-xs-8">
+    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span><input id="user_name" class="form-control" name="user_name" size="15" type="text" value="" placeholder="Username">
+  </div>
+    {% for error in form.user_name.errors %}
+      <span style="color: red;">[{{error}}]</span>
+    {% endfor %}
+  <br>
+  <div class="input-group col-xs-8">
+    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span><input id="user_pass" class="form-control" name="user_pass" type="text" value="" placeholder="Password">
+  </div>
+    {% for error in form.user_pass.errors %}
+      <span style="color: red;">[{{error}}]</span>
+    {% endfor %}
+  <br>
+  <p>{{ form.remember_me }} Remember Me</p>
+  <p><input class="btn btn-default" type="submit" value="Sign In"></p>
+</form>
+{% endblock %}

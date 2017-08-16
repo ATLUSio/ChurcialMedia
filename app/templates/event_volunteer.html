@@ -1,0 +1,28 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<a href="" onclick="window.history.back()"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<table>
+	<tr valign="top">
+		<td><center><h3>{{ event.event_name }}</h3></center></td>
+		<!--<td><center><h3>{{ (event.event_date).strftime('%m-%d-%Y') }}</h3></center></td>-->
+	</tr>
+	{% for count, day in enum(vs) %}
+	<tr valign="top">
+		<td><center><h3>{{ day['day'] }}</h3></center></td>
+		<td><center><h3>Name:</h3></center></td>
+	</tr>
+	{% for time in sor(day['times']) %}
+	<tr>
+		<td><center><h3>{{ time }}</h3></center></td>
+		{% for count_2, t in enum(day['times'][time]) %}
+		<td><center><h3>{% if day['times'][time][count_2] %}{{ day['times'][time][count_2] }}{% else %}None{% endif %}</h3></center></td>
+		<td><center><h3>{% if day['times'][time][count_2] == user.display_name %}<a href="/events/{{ event.event_id }}/unvolunteer/{{ count }}/{{ time }}/{{ count_2 }}" class="btn btn-success">Unvolunteer</a>{% elif not day['times'][time][count_2] %}{% if user.id == event.coordinator_id %}{% else %}<a href="/events/{{ event.event_id }}/volunteer/{{ count }}/{{ time }}/{{ count_2 }}" class="btn btn-primary">Volunteer</a>{%endif%}{% else %}<button type="button" class="btn" disabled>&nbsp;&nbsp;Taken&nbsp;&nbsp;&nbsp;{% endif %}</h3></center></td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+	{% endfor %}
+</table>
+{% endblock %}

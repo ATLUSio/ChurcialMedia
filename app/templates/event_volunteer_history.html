@@ -1,0 +1,25 @@
+<!-- extends "base".html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<a href="" onclick="window.history.back()"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<hr>
+<h3>Volunteer History:</h3>
+
+{% if history %}
+	{% for event in history %}
+		<hr>
+		<table>
+			<tr>
+				<td>User: {% if event['user'].user_name %}{{ event['user'].user_name }}{% else %}{{ event['user'] }}{% endif %}</td>
+				<td>Time: {{ event['time'] }}</td>
+				<td>Action: {{ event['action'] }}</td>
+			</tr>
+		</table>
+	{% endfor %}
+{% else %}
+	No actions yet!
+{% endif %}
+
+{% endblock %} 

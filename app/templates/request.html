@@ -1,0 +1,32 @@
+
+<table>
+  <tr valign="top">
+  	{% if (request.anonymous == False) or (request.parishioner.user_name == session['user']) %}
+    <td><img src="{{ request.parishioner.avatar(35) }}"></td>
+    <td><i>{% if request.parishioner.display_name %} {{ request.parishioner.display_name }} </i>{% else %} Anonymous</i> parishioner {% endif %}</i>{% if (request.anonymous == True) %}*{% endif %} requests:<br>{{ request.body }}</td>
+    <td>
+    	<div class="dropdown">
+    		<ui class="dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-sort-desc fa-fw delete_button"></i></ui>
+    		<ul class="dropdown-menu">
+    			{% if request.parishioner.user_name == session['user'] %}<li><a href="/api/requests/delete/{{ request.id }}"><i class="fa fa-ban fa-fw"></i> Delete Request</a></li>
+                {% else %}
+    			<li><a href="/api/requests/report/{{ request.id }}"><i class="fa fa-exclamation fa-fw"></i> Report Request</a></li>
+                <li><a href="/profile/{{ request.parishioner.profile_id }}"><i class="fa fa-user fa-fw"></i> View Profile</a></li>
+                {% endif %}
+    		</ul>
+    	</div>
+    </td>
+    {% else %}
+    <td><img src="{{ request.parishioner.avatar(35, True) }}"></td>
+    <td><i>Anonymous</i> parishioner requests:<br>{{ request.body }}</td>
+    <td>
+    	<div class="dropdown">
+    		<ui class="dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-sort-desc fa-fw delete_button"></i></ui>
+    		<ul class="dropdown-menu">
+    			<li><a href="/api/requests/report/{{ request.id }}"><i class="fa fa-exclamation fa-fw"></i> Report Request</a></li>
+    		</ul>
+    	</div>
+    </td>
+    {% endif %}
+  </tr>
+</table>

@@ -1,0 +1,15 @@
+<!-- extends 'base.html' -->
+
+{% extends "base.html" %}
+{% set active_page = "admin" %}
+{% block content %}
+
+<div>
+	<a href="{{ url_for('admin_reports') }}" class="btn btn-primary">Reports</a>{% if na %}<i class="fa fa-exclamation fa-fw"></i>{% endif %}
+</div>
+<br>
+<div>
+	<a href="{{ url_for('admin_tickets') }}" class="btn btn-primary">Tickets</a>
+</div>
+
+{% endblock %}

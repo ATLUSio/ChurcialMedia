@@ -1,0 +1,69 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/events"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<table>
+		<tr valign="top">
+			<td><center><h3>{{event.event_name}}</h3></center></td>
+			<td><center><h3>Coordinator: <a href="/profile/{{coordinator.profile_id}}">{{coordinator.display_name}}</a></h3></center></td>
+		</tr>
+		<tr>
+			<td><center><h4>Date: {% if (event.event_date.strftime('%m-%d-%Y')) == "01-01-1970" %}Neverending{% else %}{{ (event.event_date).strftime('%m-%d-%Y') }}{% endif %}</h4></center></td>
+			<td><center><h3>{% if event not in user.events_attending %}<a href="/events/{{ event.event_id }}/attend" class="btn btn-primary">Attend </a>{% else %}<a href="/events/{{ event.event_id }}/unattend" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check fa-fw"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>{% endif %}</h3></center></td>
+		</tr>
+		<tr>
+			<td><h4>{% if event.address %}{{event.address}}{% else %}Undetermined Location{% endif %}</h4></td>
+			<td>
+				<center>
+					<div class="dropdown">
+						{% if event in user.events_attending %}
+						<ui class="dropdown-toggle btn btn-primary" type="button" data-toggle="dropdown">Options</ui>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="/events/{{ event.event_id }}/volunteer"><center>Volunteer</center></a>
+							</li>
+							{% if (user.id == event.coordinator_id) or (user.administrator == True) %}
+							<li>
+								<a href="/events/{{ event.event_id }}/history"><center>Volunteer History</center></a>
+							</li>
+							{% endif %}
+							<li>
+								<a href="/events/{{ event.event_id }}/discussion"><center>Discussion</center></a>
+							</li>
+							<li>
+								<a href="/events/{{ event.event_id }}/invite"><center>Invite</center></a>
+							</li>
+						</ul>
+						{% else %}
+						<button type="button" class="btn" disabled>Options
+						{% endif %}
+					</div>
+				</center>
+			</td>
+		</tr>
+</table>
+<hr>
+{{event.event_desc}}
+<hr>
+<h3>Attending parishioners:</h3>
+{% if au %}
+<ul>
+	{% for user in au %}
+	<li>{{ user.display_name }}</li>
+	{% endfor %}
+</ul>
+{% else %}
+Doesn't appear there is anyone attending this event. Maybe you should invite someone?
+{% endif %}
+<h3>Volunteering parishioners:</h3>
+{% if vols %}
+<ul>
+	{% for vol in vols %}
+	<li>{{ vol.display_name }}</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

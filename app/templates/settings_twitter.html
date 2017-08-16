@@ -1,0 +1,50 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<a href="" onclick="window.history.back()"><i class="fa fa-arrow-left fa-fw"></i>Back</a>
+<hr>
+{% if user.twitter_enabled == True %}
+<h3>Disable Twitter:</h3>
+<a href='/profile/twitter/disable' class='btn btn-primary btn-danger'>Disable</a>
+<hr>
+{% elif user.twitter_enabled == False and tw2 == True %}
+<h3>Enable Twitter:</h3>
+<a href='/profile/twitter/enable' class='btn btn-primary'>Enable</a>
+<hr>
+{% endif %}
+<h3>Twitter Information:<a href="#" data-toggle="tooltip" title="Sensitive application data required to send tweets on your behalf. Create an application at: apps.twitter.com/"><i class="fa fa-question fa-fw"></i></a></h3>
+<form action="" method="post" name="settings">
+	{{ form.hidden_tag() }}
+	<div class="input-group col-xs-4">
+		<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span><input id="consumer_key" class="form-control" name="consumer_key" type="text" value="" placeholder="Consumer Key:">
+	</div>
+		{% for error in form.consumer_key.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	<br>
+	<div class="input-group col-xs-4">
+		<span class="input-group-addon"><i class="fa fa-puzzle-piece fa-fw"></i></span><input id="consumer_secret" class="form-control" name="consumer_secret" size="50" type="text" value="" placeholder="Consumer Secret:">
+	</div>
+		{% for error in form.consumer_secret.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	<br>
+	<div class="input-group col-xs-4">
+		<span class="input-group-addon"><i class="fa fa-certificate fa-fw"></i></span><input id="access_token" class="form-control" name="access_token" type="text" value="" placeholder="Access Token:">
+	</div>
+		{% for error in form.access_token.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	<br>
+	<div class="input-group col-xs-4">
+		<span class="input-group-addon"><i class="fa fa-user-secret fa-fw"></i></span><input id="access_token_secret" class="form-control" name="access_token_secret" type="text" value="" placeholder="Access Token Secret:">
+	</div>
+		{% for error in form.access_token_secret.errors %}
+			<span style="color: red;">[{{error}}]</span>
+		{% endfor %}
+	<br>
+	<p><input class="btn btn-default" type="submit" name="submit_settings"></p>
+</form>
+{% endblock %}

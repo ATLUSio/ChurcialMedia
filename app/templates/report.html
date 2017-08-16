@@ -1,0 +1,20 @@
+<table>
+  <tr valign="top">
+  	{% if 'administrator' in session %}
+  	<td>
+  		<div class="dropdown">
+  			<ui class="dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-sort-desc fa-fw"></i></ui>
+  			<ul class="dropdown-menu">
+  				<li><a href="/api/requests/delete/{{ report[1].id }}"><i class="fa fa-times fa-fw"></i>Delete Request</a></li>
+  				<li><a href="/api/reports/delete/{{ report[0].id }}"><i class="fa fa-check fa-fw"></i>Ignore Report</a></li>
+  			</ul>
+  		</div>
+  	</td>
+  	{% endif %}
+    <td>Request Body: {{ report[1].body }}</td>
+    <td>Requester ID: {{ report[1].parishioner_id }}</td>
+    <td>Reported [{{ report[3] }}] times</td>
+    <td>Reporter IDs: {{ report[0].reporter_ids }}</td>
+    {% if report[2] %}<td>Error Body: {{ report[2] }}</td>{% endif %}
+  </tr>
+</table>

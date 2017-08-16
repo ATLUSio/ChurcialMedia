@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% set active_page = "tickets" %}
+
+{% block content %}
+<a href="/tickets/open" class="btn btn-primary">Open Tickets</a>
+	<h2>Submit a ticket:</h2>
+	<form action="" method="post" name="tickets">
+		{{ form.hidden_tag() }}
+		{{ form.correspondence(cols="30", rows="8") }}
+		<br>
+		<p><input class="btn btn-default" type="submit" name="submit_ticket"></p>
+	</form>
+{% endblock %}

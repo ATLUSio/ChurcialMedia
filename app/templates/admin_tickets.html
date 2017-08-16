@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/admin"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<br>
+
+{% if tickets %}
+	{% for ticket in tickets %}
+		{% include "ticket.html" %}
+		<br>
+	{% endfor %}
+	<br>
+	<br>
+	<br>
+	<br>
+{% else %}
+	No open tickets!
+{% endif %}
+
+{% endblock %}

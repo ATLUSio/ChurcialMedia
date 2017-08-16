@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set active_page = "events" %}
+
+{% block content %}
+	<a href="{{ url_for('get_event', event_id=event.event_id) }}" class="btn btn-primary">Back to {{ event.event_id }}</a>
+	<h3>{{event.event_id}} discussion:</h3>
+	<form action="" method="post" name="discussion">
+		{{ form.hidden_tag() }}
+		{{ form.discussion(cols="50", rows="4") }}
+		<br>
+		<p><input class="btn btn-default" type="submit" name="submit_post"></p>
+	</form>
+	<br>
+	<hr>
+	<h3>Discussion:</h3>
+	<br>
+	<div>
+		{% for message in discussion %}
+			<p><b>{{ message['user'] }}</b>: {{ message['message'] }}</p>
+			<br>
+		{% endfor %}
+	</div>
+
+{% endblock %}

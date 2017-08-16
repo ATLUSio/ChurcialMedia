@@ -1,0 +1,15 @@
+<table>
+	<tr valign="top">
+		<td>
+			<div class="dropdown">
+				<ui class="dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-sort-desc fa-fw"></i></ui>
+				<ul class="dropdown-menu">
+					<li><a href="/api/notifications/delete/{{ notification[0].id }}"><i class="fa fa-times fa-fw"></i>Delete Notification</a></li>
+				</ul>
+			</div>
+		</td>
+		<td>{{ notification[0].body }}</td>
+		{% if notification[0].type == "events" %}<td><a href="/{{ notification[0].type }}/{{ notification[1].event_id }}/attend" class="btn btn-primary btn-sm">Accept?</a></td>{% endif %}
+		{% if notification[0].type == "tickets" %}<td><a href="/{{ notification[0].type }}/{{ notification[1].id }}">[ Click To View ]</a></td>{% endif %}
+	</tr>
+</table>

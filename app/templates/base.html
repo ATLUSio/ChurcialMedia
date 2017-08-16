@@ -1,0 +1,205 @@
+<html>
+  <head>
+    {% if 'user' in session %}
+    <title>Welcome back to AdoreJes.us!</title>
+    {% else %}
+    <title>Welcome to AdoreJes.us!</title>
+    {% endif %}
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href=" {{ url_for('static', filename='adj-favicon.ico') }} ">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/simple-sidebar.css')}}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav" id="snav">
+          <li class="" style="padding-top: 15px">
+            <a href="/index">
+              <img src="{{ url_for('static',filename='aj.png') }}">
+              <span>
+                &nbsp;&nbsp;AdoreJes.us
+              </span>
+            </a>
+          </li>
+          {% set nav = [('index', 'nav_index', 'Prayer Feed')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-rss fa-fw"></i>
+              <span>
+              &nbsp;&nbsp;&nbsp;{{ text }}
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% if 'user' in session %}
+          {% set nav = [('profile', 'nav_profile', 'Profile')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-user fa-fw"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;{{ text }} ({{ session['user'] }})
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% set nav = [('notifications', 'nav_notifications', 'Notifications')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-comments-o fa-fw"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;{{ text }}
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% if 'administrator' in session %}
+          {% set nav = [('admin', 'nav_admin', 'Admin Panel')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-balance-scale fa-fw"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;{{ text }}
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}
+          {% set nav = [('events', 'nav_events', 'Events')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-calendar-o fa-fw"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;{{ text }}
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}
+          {% if 'user' not in session %}
+          {% set nav = [('register', 'nav_register', 'Register')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-registered fa-fw"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;{{ text }}
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% set nav = [('login', 'nav_login', 'Login')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-sign-in fa-fw"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;{{ text }}
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}
+          {% set nav = [('faq', 'nav_faq', 'FAQs')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href='/{{ href }}'>
+              <i class="fa fa-question fa-fw"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;{{ text }}
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+          {% if 'user' in session %}
+          {% if 'administrator' not in session %}
+          {% set nav = [('tickets', 'nav_tickets', 'Tickets')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href== active_page %}class="active"{% endif %}>
+            <a href="/{{ href }}">
+              <div class="dropdown">
+                <ui class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  <i class="fa fa-ticket fa-fw"></i>
+                  <span>
+                    &nbsp;&nbsp;&nbsp; {{ text }}
+                  </span>
+                </ui>
+              </div>
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}
+          {% set nav = [('api/logout', 'nav_logout', 'Logout')] -%}
+          {% for href, n, text in nav %}
+          <li id='{{ n }}' {% if href == active_page %}class="active"{% endif %}>
+            <a href="/{{ href }}">
+              <div class="dropdown">
+                <ui class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  <i class="fa fa-sign-out fa-fw"></i>
+                 <span>&nbsp;&nbsp;&nbsp; {{ text }}</span>
+                </ui>
+              </div>
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}
+          <li class="menu-tog">
+            <a href="" id="menu-toggle">
+              <i class="fa fa-exchange fa-fw pic-move-left"></i>
+              <span>
+                &nbsp;&nbsp;&nbsp;Compress
+              </span>
+            </a>
+          </li>
+        </ul>
+        <li>
+          <a href="" id="menu-toggle" class="hide-compress">
+            <i class="fa fa-exchange fa-fw"></i>
+          </a>
+        </li>
+      </div>
+      <!-- sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <a href="" id="menu-toggle" class="hide-compress">
+          <i class="fa fa-exchange fa-fw"></i>
+        </a>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+      </div>
+      <!-- page-content-wrapper -->
+      <script>
+        $(document).ready(function() {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+      <script>
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+      </script>
+    </div>
+    <!-- wrapper -->
+  </body>
+  <div class="clear"></div>
+  <footer>
+      <p>Copyright <a href="https://AdoreJes.us">AdoreJes.us 2015</p>
+  </footer>
+</html>

@@ -1,0 +1,49 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<a href="/profile/me"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
+<hr>
+<h1>Account Information:</h1>
+<form action="" method="post" name="settings">
+	{{ form.hidden_tag() }}
+	<div class="input-group col-xs-8">
+		 <span class="input-group-addon"><a href="#" data-toggle="tooltip" title="This is the name as which others see you; Jane Doe, for example. Display name can only be 64 charaters long."><i class="fa fa-question fa-fw"></i></a></span><input id="display_name" class="form-control" name="display_name" size="50" type="text" {% if user.display_name %}value="{{user.display_name}}"{% else %} value=""{% endif %} placeholder="Display Name:">
+	</div>
+	{% for error in form.display_name.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><a href="#" data-toggle="tooltip" title="The ID to your profile, so others may find you. Profile ID must be unique and between 3-12 characters long."><i class="fa fa-user fa-fw"></i></a></span><input id="profile_id" class="form-control" name="profile_id" size="50" type="text" {% if user.profile_id %} value="{{user.profile_id}}"{% else %}value=""{% endif %} placeholder="Profile ID:">
+	</div>
+	{% for error in form.profile_id.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><a href="#" data-toggle="tooltip" title="Please enter a valid e-Mail address. Your e-Mail address will not be distributed or used for spam."><i class="fa fa-at fa-fw"></i></a></span><input id="user_email" class="form-control" name="user_email" size="50" type="text" {% if user.email %} value="{{user.email}}"{% else %}value=""{% endif %} placeholder="E-Mail Address:">
+	</div>
+	{% for error in form.user_email.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><a href="#" data-toggle="tooltip" title="We recommend: 12+ numbers and letters"><i class="fa fa-key fa-fw"></i></a></span><input id="user_pass" class="form-control" name="user_pass" type="text" value="" placeholder="Password:">
+	</div>
+	{% for error in form.user_pass.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<div class="input-group col-xs-8">
+		<span class="input-group-addon"><a href="#" data-toggle="tooltip" title="Please re-enter your password to verify"><i class="fa fa-key fa-fw"></i></a></span><input id="user_pass_verify" class="form-control" name="user_pass_verify" type="text" value="" placeholder="Password:">
+	</div>
+	{% for error in form.user_pass_verify.errors %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}
+	<br>
+	<p><input class="btn btn-default" type="submit" name="submit_settings">
+</form>
+{% endblock %}

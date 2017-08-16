@@ -1,0 +1,9 @@
+<!-- extends "base.html" -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Please confirm that you would like to delete this event.</h3>
+<a href="/events/manage/{{event.event_id}}/delete" class="btn btn-danger">I confirm</a>
+<a href="/events/manage/{{event.event_id}}" class="btn btn-success">Go back</a>
+{% endblock %}
